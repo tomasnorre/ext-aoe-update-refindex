@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\UpdateRefindex\Tests\Unit\Typo3;
 
 /***************************************************************
@@ -44,10 +46,8 @@ use TYPO3\CMS\Core\Database\ReferenceIndex;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class RefIndexTest extends UnitTestCase
+final class RefIndexTest extends UnitTestCase
 {
-    public ConnectionPool $connectionPool;
-
     private Prophet $prophet;
 
     private ObjectProphecy | null $connectionPoolProphet = null;

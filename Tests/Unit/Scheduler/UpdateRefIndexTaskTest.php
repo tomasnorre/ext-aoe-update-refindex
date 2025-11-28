@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\UpdateRefindex\Tests\Unit\Scheduler;
 
 /***************************************************************
@@ -37,11 +39,11 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * @package update_refindex
  * @subpackage Tests
  */
-class UpdateRefIndexTaskTest extends UnitTestCase
+final class UpdateRefIndexTaskTest extends UnitTestCase
 {
-    protected MockObject $refIndex;
+    private MockObject $refIndex;
 
-    protected MockObject $task;
+    private MockObject $task;
 
     /**
      * Prepares the environment before running a test.
