@@ -82,7 +82,7 @@ final class RefIndexTest extends UnitTestCase
 
     public function testGetReferenceIndex(): void
     {
-        $referenceIndex = $this->createMock(ReferenceIndex::class);
+        $referenceIndex = $this->createStub(ReferenceIndex::class);
         GeneralUtility::addInstance(ReferenceIndex::class, $referenceIndex);
 
         $refIndex = new RefIndex();
@@ -115,7 +115,7 @@ final class RefIndexTest extends UnitTestCase
         $refIndex
             ->expects($matcher)
             ->method('updateTable')
-            ->willReturnCallback(function ($selectedTable) use ($matcher, $selectedTables): void {
+            ->willReturnCallback(function (string $selectedTable) use ($matcher, $selectedTables): void {
                 match ($this->matcherCount($matcher)) {
                     1 => $this->assertSame($selectedTables[0], $selectedTable),
                     2 => $this->assertSame($selectedTables[1], $selectedTable),
@@ -280,7 +280,7 @@ final class RefIndexTest extends UnitTestCase
     {
         $table = 'test_table';
 
-        $refIndex = $this->createMock(RefIndex::class);
+        $refIndex = $this->createStub(RefIndex::class);
 
         $testTableQueryBuilderProphet = $this->getQueryBuilderProphet($table);
         $selectQueryBuilderMock = $testTableQueryBuilderProphet->reveal();
@@ -350,15 +350,13 @@ final class RefIndexTest extends UnitTestCase
             ->method('removeAll')
             ->willReturnSelf();
 
-        $expressionBuilderMock = $this->createMock(ExpressionBuilder::class);
-
         $queryBuilderMock = $this->createMock(QueryBuilder::class);
         $queryBuilderMock
             ->method('getRestrictions')
             ->willReturn($queryRestrictionMock);
         $queryBuilderMock
             ->method('expr')
-            ->willReturn($expressionBuilderMock);
+            ->willReturn($this->createStub(ExpressionBuilder::class));
 
         $connectionPoolMock = $this->getConnectionPoolMock();
         $this->assertInstanceOf(ConnectionPool::class, $connectionPoolMock);
